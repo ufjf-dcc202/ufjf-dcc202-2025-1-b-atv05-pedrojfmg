@@ -7,8 +7,6 @@
 
     function criaTabuleiro(){
         const novoTabuleiro = document.createElement("Div");
-        novoTabuleiro.classList.add("Tabuleiro");
-        novoTabuleiro.style.backgroundColor = "lightgreen";
-        novoTabuleiro.style.minHeight = "25px";
+        novoTabuleiro.classList.add("tabuleiro");
         return novoTabuleiro;
     }
