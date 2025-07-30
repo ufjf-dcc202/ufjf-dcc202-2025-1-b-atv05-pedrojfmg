@@ -36,5 +36,5 @@
         }
         tabuleiro[destino] = tabuleiro[origem];
         tabuleiro[origem] = "tranparente";
-        
+  
     }
