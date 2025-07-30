@@ -1,30 +1,43 @@
+import { getTabuleiro } from "./discos.js";
+import { seleciona } from "./discos.js";
+
     const eH1 = document.querySelector("h1");
     eH1.textContent = "Ola Mundo!";
 
     const eTabuleiro = criaTabuleiro();
     document.body.append(eTabuleiro);
     
-    for(let i=0; i < 7; i++){
-        const eDisco = criaDisco();
-        eTabuleiro.append(eDisco);
+    const tabuleiro = getTabuleiro();
 
-        if(i < 3){
-            eDisco.dataset.cor = "branco";
-        } else if (i > 3){
-            eDisco.dataset.cor = "preto";
-        } else {
-            eDisco.dataset.cor = "transparente";
+    for( let i = 0; i < 7; i++){
+        const eDisco = criaDisco(tabuleiro[i], i);
+        eTabuleiro.append(eDisco);        
+    }
+
+    function atualizaDiscos(){
+        const tabuleiro = getTabuleiro();
+        for(let i = 0; i < eTabuleiro.children.length; i++){
+            const disco = eTabuleiro.children[i];
+            disco.dataset.cor = tabuleiro[disco.dataset.posicao];
         }
     }
-    
-    function criaDisco(){
-        const novoDisco = document.createElement("Div");
-        novoDisco.classList.add("disco");
-        return novoDisco;
+
+    function discoClick(evento){
+        const posicao = Number(evento.target.dataset.posicao);
+        console.log("Click!" + posicao);
+        seleciona(posicao);
+        atualizaDiscos();
     }
 
+    function criaDisco(cor, posicao){
+        const novoDisco = document.createElement("Div");
+        novoDisco.classList.add("disco");
+        novoDisco.dataset.cor=cor;
+        novoDisco.dataset.posicao=posicao;
+        novoDisco.addEventListener("click", discoClick);
+        return novoDisco;
+    }
     
-
     function criaTabuleiro(){
         const novoTabuleiro = document.createElement("Div");
         novoTabuleiro.classList.add("tabuleiro");
